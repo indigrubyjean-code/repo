@@ -1,0 +1,1002 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Velvet Cafe | POS System</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --purple: #7541a3;
+    --dark-purple: #392052;
+    --light-purple: #f1e8fa;
+    --background: #faf7fc;
+    --text: #382747;
+    --muted: #9689a2;
+    --white: #ffffff;
+    --green: #329b72;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: var(--background);
+    color: var(--text);
+}
+
+/* SIDEBAR */
+
+.sidebar {
+    width: 235px;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding: 28px 18px;
+    background: var(--white);
+    border-right: 1px solid #eee5f5;
+}
+
+.logo {
+    color: var(--purple);
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 45px;
+}
+
+.logo span {
+    color: var(--dark-purple);
+}
+
+.sidebar h4 {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+}
+
+.nav a {
+    display: block;
+    padding: 14px;
+    margin-bottom: 8px;
+    text-decoration: none;
+    color: #86778f;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+.nav a:hover,
+.nav a.active {
+    color: var(--purple);
+    background: var(--light-purple);
+    transform: translateX(4px);
+}
+
+/* MAIN CONTENT */
+
+.main {
+    margin-left: 235px;
+    padding: 30px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.header h1 {
+    font-size: 27px;
+}
+
+.header p {
+    margin-top: 8px;
+    color: var(--muted);
+}
+
+.badge {
+    background: #e5f7ed;
+    color: var(--green);
+    padding: 10px 15px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* SUMMARY CARDS */
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-bottom: 25px;
+}
+
+.card {
+    background: var(--white);
+    border: 1px solid #eee6f4;
+    border-radius: 15px;
+    padding: 22px;
+    box-shadow: 0 5px 20px #43245b08;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px #43245b15;
+}
+
+.stat-label {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.stat-value {
+    margin-top: 14px;
+    font-size: 25px;
+    font-weight: bold;
+    color: var(--dark-purple);
+}
+
+.stat-icon {
+    font-size: 25px;
+    margin-bottom: 12px;
+}
+
+/* SECTION LAYOUT */
+
+.content-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.5fr)
+                           minmax(300px, 0.9fr);
+    gap: 22px;
+    align-items: start;
+}
+
+.section {
+    background: var(--white);
+    border: 1px solid #eee6f4;
+    border-radius: 15px;
+    padding: 22px;
+    margin-bottom: 22px;
+    box-shadow: 0 5px 20px #43245b08;
+}
+
+.section h2 {
+    font-size: 19px;
+    margin-bottom: 18px;
+}
+
+.section-subtitle {
+    color: var(--muted);
+    font-size: 12px;
+    margin-top: -10px;
+    margin-bottom: 20px;
+}
+
+/* SEARCH */
+
+.search {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #e8dced;
+    border-radius: 9px;
+    margin-bottom: 18px;
+    outline: none;
+}
+
+.search:focus {
+    border-color: var(--purple);
+    box-shadow: 0 0 0 3px #7541a315;
+}
+
+/* PRODUCT CATALOG */
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
+}
+
+.product {
+    overflow: hidden;
+    border: 1px solid #eee6f4;
+    border-radius: 13px;
+    transition: 0.3s;
+}
+
+.product:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px #7541a320;
+}
+
+.product-image {
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    background: linear-gradient(135deg, #eadcf8, #c9a9e5);
+}
+
+.product:nth-child(2) .product-image {
+    background: linear-gradient(135deg, #e9f0d9, #c0d4a5);
+}
+
+.product:nth-child(3) .product-image {
+    background: linear-gradient(135deg, #f8e6d7, #e3bba0);
+}
+
+.product:nth-child(4) .product-image {
+    background: linear-gradient(135deg, #f8e8c8, #e9c28d);
+}
+
+.product:nth-child(5) .product-image {
+    background: linear-gradient(135deg, #e7d8f3, #d2b5e9);
+}
+
+.product:nth-child(6) .product-image {
+    background: linear-gradient(135deg, #f4dfd0, #d5b49d);
+}
+
+.product-info {
+    padding: 13px;
+}
+
+.product-info h3 {
+    font-size: 14px;
+    margin-bottom: 7px;
+}
+
+.product-info p {
+    color: var(--muted);
+    font-size: 12px;
+    margin-bottom: 12px;
+}
+
+.product-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.price {
+    color: var(--purple);
+    font-weight: bold;
+}
+
+.add-button {
+    border: none;
+    border-radius: 8px;
+    padding: 7px 11px;
+    background: var(--light-purple);
+    color: var(--purple);
+    font-size: 18px;
+    cursor: pointer;
+}
+
+/* SHOPPING CART */
+
+.order-number {
+    color: var(--purple);
+    background: var(--light-purple);
+    padding: 5px 9px;
+    border-radius: 7px;
+    font-size: 12px;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 0;
+    border-bottom: 1px solid #f0eaf4;
+}
+
+.cart-item h4 {
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+.cart-item p {
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.cart-price {
+    text-align: right;
+    white-space: nowrap;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.cart-total {
+    padding-top: 18px;
+}
+
+.total-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 13px;
+    font-size: 13px;
+}
+
+.grand-total {
+    border-top: 1px dashed #d9c9e5;
+    padding-top: 16px;
+    color: var(--purple);
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* PAYMENT */
+
+.payment-options {
+    display: flex;
+    gap: 8px;
+    margin: 16px 0;
+}
+
+.payment {
+    flex: 1;
+    text-align: center;
+    border: 1px solid #e8dced;
+    border-radius: 8px;
+    padding: 10px 4px;
+    font-size: 12px;
+}
+
+.payment.selected {
+    border-color: var(--purple);
+    color: var(--purple);
+    background: var(--light-purple);
+}
+
+.cash-box {
+    background: #faf7fc;
+    padding: 13px;
+    border-radius: 9px;
+    margin-bottom: 12px;
+}
+
+.cash-box p {
+    color: var(--muted);
+    font-size: 12px;
+    margin-bottom: 7px;
+}
+
+.cash-box strong {
+    font-size: 16px;
+}
+
+.change {
+    display: flex;
+    justify-content: space-between;
+    padding: 13px;
+    margin-bottom: 15px;
+    border-radius: 9px;
+    color: #25835d;
+    background: #e9f7ef;
+}
+
+.checkout {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(120deg, #8c59b7, #512777);
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.checkout:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px #7541a340;
+}
+
+/* SALES HISTORY */
+
+.history-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 14px 0;
+    border-bottom: 1px solid #f0eaf4;
+    font-size: 12px;
+}
+
+.history-row:last-child {
+    border-bottom: none;
+}
+
+.history-row p {
+    color: var(--muted);
+    margin-top: 5px;
+    font-size: 11px;
+}
+
+.paid {
+    color: var(--green);
+    background: #e9f7ef;
+    border-radius: 5px;
+    padding: 4px 7px;
+    font-size: 10px;
+}
+
+/* RECEIPT */
+
+.receipt {
+    max-width: 330px;
+    margin: auto;
+    padding: 20px;
+    background: #fffefa;
+    border: 1px dashed #d6c5e0;
+    font-family: "Courier New", monospace;
+    font-size: 12px;
+}
+
+.receipt h3 {
+    text-align: center;
+    color: var(--purple);
+    margin-bottom: 6px;
+}
+
+.receipt p {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.receipt-line {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    margin: 10px 0;
+}
+
+.receipt-line strong {
+    text-align: right;
+}
+
+.receipt hr {
+    border: none;
+    border-top: 1px dashed #cbbbd5;
+    margin: 14px 0;
+}
+
+.thanks {
+    text-align: center;
+    color: var(--purple);
+    font-weight: bold;
+    margin-top: 18px;
+}
+
+/* FOOTER */
+
+footer {
+    text-align: center;
+    padding: 25px 0;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+/* ANIMATIONS */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.stat-card,
+.section {
+    animation: fadeIn 0.6s ease both;
+}
+
+.stat-card:nth-child(2) { animation-delay: 0.08s; }
+.stat-card:nth-child(3) { animation-delay: 0.16s; }
+.stat-card:nth-child(4) { animation-delay: 0.24s; }
+
+/* RESPONSIVE DESIGN */
+
+@media (max-width: 1100px) {
+    .sidebar {
+        width: 190px;
+    }
+
+    .main {
+        margin-left: 190px;
+        padding: 22px;
+    }
+
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 650px) {
+    .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+        padding: 18px;
+    }
+
+    .logo {
+        margin-bottom: 18px;
+    }
+
+    .sidebar h4 {
+        display: none;
+    }
+
+    .nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+
+    .nav a {
+        padding: 9px;
+        margin: 0;
+        font-size: 12px;
+    }
+
+    .main {
+        margin-left: 0;
+        padding: 15px;
+    }
+
+    .header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .header h1 {
+        font-size: 23px;
+    }
+
+    .stats {
+        gap: 10px;
+    }
+
+    .card {
+        padding: 14px;
+    }
+
+    .stat-value {
+        font-size: 20px;
+    }
+
+    .products {
+        gap: 9px;
+    }
+
+    .product-image {
+        height: 90px;
+        font-size: 38px;
+    }
+
+    .section {
+        padding: 15px;
+    }
+}
+
+/* PRINT ONLY THE RECEIPT */
+
+@media print {
+    body {
+        background: white;
+    }
+
+    .sidebar,
+    .header,
+    .stats,
+    .catalog-section,
+    .cart-section,
+    .history-section,
+    footer,
+    .no-print {
+        display: none !important;
+    }
+
+    .main {
+        margin: 0;
+        padding: 0;
+    }
+
+    .content-grid {
+        display: block;
+    }
+
+    .receipt-section {
+        display: block;
+        border: none;
+        box-shadow: none;
+        width: 80mm;
+        margin: auto;
+    }
+
+    .receipt {
+        border: none;
+        max-width: 100%;
+    }
+
+    @page {
+        margin: 8mm;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+    <div class="logo">✦ Velvet <span>Café</span></div>
+
+    <h4>WORKSPACE</h4>
+
+    <nav class="nav">
+        <a href="#pos" class="active">▦ Point of Sale</a>
+        <a href="#products">☕ Products</a>
+        <a href="#history">▤ Sales History</a>
+        <a href="#receipt">▧ Receipt Preview</a>
+    </nav>
+</aside>
+
+<!-- MAIN DASHBOARD -->
+
+<main class="main" id="pos">
+
+    <header class="header">
+        <div>
+            <h1>Good afternoon, barista! ✦</h1>
+            <p>A little coffee, a little kindness, a lovely day.</p>
+        </div>
+
+        <div class="badge">● Register Open</div>
+    </header>
+
+    <!-- SUMMARY -->
+
+    <section class="stats">
+
+        <div class="card stat-card">
+            <div class="stat-icon">💜</div>
+            <div class="stat-label">Today's Sales</div>
+            <div class="stat-value">₱8,450.00</div>
+        </div>
+
+        <div class="card stat-card">
+            <div class="stat-icon">🧾</div>
+            <div class="stat-label">Orders Today</div>
+            <div class="stat-value">36</div>
+        </div>
+
+        <div class="card stat-card">
+            <div class="stat-icon">♡</div>
+            <div class="stat-label">Average Order</div>
+            <div class="stat-value">₱234.72</div>
+        </div>
+
+        <div class="card stat-card">
+            <div class="stat-icon">☕</div>
+            <div class="stat-label">Popular Product</div>
+            <div class="stat-value">Spanish Latte</div>
+        </div>
+
+    </section>
+
+    <div class="content-grid">
+
+        <!-- PRODUCT CATALOG -->
+
+        <section class="section catalog-section" id="products">
+            <h2>☕ Product Catalog</h2>
+            <p class="section-subtitle">Find your customer's favorite.</p>
+
+            <input class="search" type="search"
+                   placeholder="Search coffee, drinks, pastries...">
+
+            <div class="products">
+
+                <article class="product">
+                    <div class="product-image">☕</div>
+                    <div class="product-info">
+                        <h3>Iced Spanish Latte</h3>
+                        <p>Espresso · Milk · Sweet</p>
+                        <div class="product-bottom">
+                            <span class="price">₱165.00</span>
+                            <button class="add-button" type="button">+</button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="product">
+                    <div class="product-image">🍵</div>
+                    <div class="product-info">
+                        <h3>Iced Matcha Latte</h3>
+                        <p>Matcha · Fresh milk</p>
+                        <div class="product-bottom">
+                            <span class="price">₱175.00</span>
+                            <button class="add-button" type="button">+</button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="product">
+                    <div class="product-image">🧋</div>
+                    <div class="product-info">
+                        <h3>Cold Brew</h3>
+                        <p>Slow-steeped · Smooth</p>
+                        <div class="product-bottom">
+                            <span class="price">₱145.00</span>
+                            <button class="add-button" type="button">+</button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="product">
+                    <div class="product-image">🥐</div>
+                    <div class="product-info">
+                        <h3>Butter Croissant</h3>
+                        <p>Flaky · Freshly baked</p>
+                        <div class="product-bottom">
+                            <span class="price">₱95.00</span>
+                            <button class="add-button" type="button">+</button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="product">
+                    <div class="product-image">🍰</div>
+                    <div class="product-info">
+                        <h3>Ube Cheesecake</h3>
+                        <p>Ube · Cream cheese</p>
+                        <div class="product-bottom">
+                            <span class="price">₱185.00</span>
+                            <button class="add-button" type="button">+</button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="product">
+                    <div class="product-image">🍫</div>
+                    <div class="product-info">
+                        <h3>Mocha Frappe</h3>
+                        <p>Chocolate · Espresso</p>
+                        <div class="product-bottom">
+                            <span class="price">₱180.00</span>
+                            <button class="add-button" type="button">+</button>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- SHOPPING CART AND CHECKOUT -->
+
+        <div>
+
+            <section class="section cart-section">
+                <h2>🛒 Current Order
+                    <span class="order-number">#VC-0248</span>
+                </h2>
+
+                <div class="cart-item">
+                    <div>
+                        <h4>Iced Spanish Latte × 1</h4>
+                        <p>Regular · Oat milk</p>
+                    </div>
+                    <div class="cart-price">₱165.00</div>
+                </div>
+
+                <div class="cart-item">
+                    <div>
+                        <h4>Butter Croissant × 1</h4>
+                        <p>Warm · Freshly baked</p>
+                    </div>
+                    <div class="cart-price">₱95.00</div>
+                </div>
+
+                <div class="cart-item">
+                    <div>
+                        <h4>Iced Matcha Latte × 1</h4>
+                        <p>Large · Less sugar</p>
+                    </div>
+                    <div class="cart-price">₱195.00</div>
+                </div>
+
+                <div class="cart-total">
+                    <div class="total-row">
+                        <span>Subtotal</span>
+                        <span>₱455.00</span>
+                    </div>
+
+                    <div class="total-row">
+                        <span>Service Charge</span>
+                        <span>₱0.00</span>
+                    </div>
+
+                    <div class="total-row grand-total">
+                        <span>Total</span>
+                        <span>₱455.00</span>
+                    </div>
+                </div>
+
+                <h3 style="font-size:14px; margin-top:18px;">
+                    Payment Method
+                </h3>
+
+                <div class="payment-options">
+                    <div class="payment selected">💵 Cash</div>
+                    <div class="payment">💳 Card</div>
+                    <div class="payment">📱 E-wallet</div>
+                </div>
+
+                <div class="cash-box">
+                    <p>Cash Received</p>
+                    <strong>₱500.00</strong>
+                </div>
+
+                <div class="change">
+                    <span>Change Due</span>
+                    <strong>₱45.00</strong>
+                </div>
+
+                <button class="checkout no-print" type="button">
+                    Complete Payment →
+                </button>
+
+            </section>
+
+            <!-- SALES HISTORY -->
+
+            <section class="section history-section" id="history">
+                <h2>📋 Sales History</h2>
+                <p class="section-subtitle">Recent transactions</p>
+
+                <div class="history-row">
+                    <div>
+                        <strong>#VC-0247</strong>
+                        <p>Today · 2 items</p>
+                    </div>
+                    <div style="text-align:right">
+                        <strong>₱310.00</strong>
+                        <p><span class="paid">Paid</span></p>
+                    </div>
+                </div>
+
+                <div class="history-row">
+                    <div>
+                        <strong>#VC-0246</strong>
+                        <p>Today · 3 items</p>
+                    </div>
+                    <div style="text-align:right">
+                        <strong>₱425.00</strong>
+                        <p><span class="paid">Paid</span></p>
+                    </div>
+                </div>
+
+                <div class="history-row">
+                    <div>
+                        <strong>#VC-0245</strong>
+                        <p>Today · 1 item</p>
+                    </div>
+                    <div style="text-align:right">
+                        <strong>₱175.00</strong>
+                        <p><span class="paid">Paid</span></p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- RECEIPT -->
+
+            <section class="section receipt-section" id="receipt">
+                <h2>🧾 Receipt Preview</h2>
+
+                <div class="receipt">
+                    <h3>✦ VELVET CAFÉ</h3>
+                    <p>A little cup of happy.</p>
+
+                    <hr>
+
+                    <div class="receipt-line">
+                        <span>Receipt No.</span>
+                        <strong>VC-0248</strong>
+                    </div>
+
+                    <div class="receipt-line">
+                        <span>Order Type</span>
+                        <strong>Dine In</strong>
+                    </div>
+
+                    <hr>
+
+                    <div class="receipt-line">
+                        <span>Spanish Latte × 1</span>
+                        <strong>₱165.00</strong>
+                    </div>
+
+                    <div class="receipt-line">
+                        <span>Butter Croissant × 1</span>
+                        <strong>₱95.00</strong>
+                    </div>
+
+                    <div class="receipt-line">
+                        <span>Matcha Latte × 1</span>
+                        <strong>₱195.00</strong>
+                    </div>
+
+                    <hr>
+
+                    <div class="receipt-line">
+                        <span>Subtotal</span>
+                        <strong>₱455.00</strong>
+                    </div>
+
+                    <div class="receipt-line">
+                        <span>Total</span>
+                        <strong>₱455.00</strong>
+                    </div>
+
+                    <div class="receipt-line">
+                        <span>Cash</span>
+                        <strong>₱500.00</strong>
+                    </div>
+
+                    <div class="receipt-line">
+                        <span>Change</span>
+                        <strong>₱45.00</strong>
+                    </div>
+
+                    <hr>
+
+                    <div class="thanks">
+                        Thank you! Come again ♡
+                    </div>
+                </div>
+
+                <button class="checkout no-print"
+                        style="margin-top:15px;"
+                        type="button"
+                        onclick="window.print()">
+                    🖨 Print Receipt
+                </button>
+            </section>
+
+        </div>
+    </div>
+
+    <footer>
+        © 2026 Velvet Café POS · Made with ♥ and a little lavender
+    </footer>
+
+</main>
+
+</body>
+</html>
